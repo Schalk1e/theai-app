@@ -12,6 +12,7 @@ THEAI_APP_STORAGE_CONNECTION_STRING = os.environ[
     "THEAI_APP_STORAGE_CONNECTION_STRING"
 ]
 
+
 def main(gpt3: func.TimerRequest) -> None:
 
     session = Session()
