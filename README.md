@@ -1,3 +1,3 @@
 # theai-app
 
-The ultimate expression of AI cynicism.
+GPT-3 loves hipster AI startups.
