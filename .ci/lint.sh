@@ -13,7 +13,7 @@ fmt() {
     isort "$@" && black -l79 "$@"
 }
 
-lint app wsgi.py
+lint app api wsgi.py
 result=$?
 
 if [ $result = 0 ]; then
@@ -24,7 +24,7 @@ else
     read user_prompt
     if [ $user_prompt = Y ]; then
         echo "Reformatting..."
-        fmt app wsgi.py
+        fmt app api wsgi.py
     fi
 fi
 
