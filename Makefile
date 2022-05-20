@@ -15,7 +15,7 @@ build-local:
 
 run-local:
 	docker run --rm \
-	-e THEAI_STORAGE_CONNECTION_STRING=$(THEAI_STORAGE_CONNECTION_STRING) \
+	-e THEAI_APP_STORAGE_CONNECTION_STRING=$(THEAI_APP_STORAGE_CONNECTION_STRING) \
 	-e PORT=$(PORT) \
 	-p 0.0.0.0:$(PORT):$(PORT) \
 	-v $(shell pwd):/usr/src/app \

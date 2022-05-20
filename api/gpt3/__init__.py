@@ -1,4 +1,5 @@
 import datetime
+import json
 import logging
 import os
 
@@ -21,8 +22,10 @@ def main(gpt3: func.TimerRequest) -> None:
         "Authorization": f"Bearer {TOKEN}",
     }
 
+    prompt = "Hipster AI startups are dumb because:"
+
     data = {
-        "prompt": "Hipster AI startups are dumb because:",
+        "prompt": prompt,
         "temperature": 0,
         "max_tokens": 10,
     }
@@ -45,15 +48,24 @@ def main(gpt3: func.TimerRequest) -> None:
         ],
     }
 
+    response_data = json.dumps(response)
+    prompt_data = json.dumps(prompt)
+
     try:
+
         blob_service_client = BlobServiceClient.from_connection_string(
             THEAI_APP_STORAGE_CONNECTION_STRING
         )
         container_name = "theaiapp"
-        blob_client = blob_service_client.get_blob_client(
-            container=container_name, blob="response.json"
-        )
-        blob_client.upload_blob(response)
+        blobs = [response_data, prompt_data]
+        names = ["response.json", "prompt.json"]
+
+        for blob, name in zip(blobs, names):
+            blob_client = blob_service_client.get_blob_client(
+                container=container_name, blob=name
+            )
+            blob_client.upload_blob(blob, overwrite=True)
+
     except Exception as e:
         error = e
         pass

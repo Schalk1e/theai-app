@@ -1,6 +1,7 @@
 html { 
   font-family: Baskerville, "Baskerville Old Face";
   font-weight: 400;
+  font-size: medium;
   font-style: normal;
 }
 
@@ -12,6 +13,17 @@ body {
     background-size: cover;
   }
 
+.header {
+  content: '   ';
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  background-color: None;
+  text-align: center;
+  background-image: url('../assets/openai.jpg');
+  background-size: 100% 100%;
+}
+
 .text {
   text-align: center;
   display: flex;
@@ -21,11 +33,37 @@ body {
   top: 50%;
   left: 50%;
   margin-top: -50px;
-  margin-left: -50px;
-  width: 100px;
+  margin-left: -500px;
+  width: 1000px;
   height: 100px;
-  border: 5px darkgrey;
-  border-style: solid none;
+}
+
+.text:before {
+  content : "";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height  : 150px;
+  width   : 150px;
+  border-bottom: 5px solid darkgrey;
+  border-top: 5px solid darkgrey;
+}
+
+.header .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: darkgrey;
+  color: black;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  top: -25px;
+  left: 120%;
+}
+
+.header:hover .tooltiptext {
+  visibility: visible;
 }
 
 .footer {
@@ -40,6 +78,12 @@ body {
   padding-bottom: 25px;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.openai {
+  left: 0;
+  position: fixed;
+  bottom: 5px;
 }
 
 a {
