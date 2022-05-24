@@ -22,7 +22,7 @@ def main(gpt3: func.TimerRequest) -> None:
         "Authorization": f"Bearer {TOKEN}",
     }
 
-    prompt = "Hipster AI startups are dumb because:"
+    prompt = "AI startups are awesome because:"
 
     data = {
         "prompt": prompt,
@@ -40,7 +40,7 @@ def main(gpt3: func.TimerRequest) -> None:
         "model": "text-davinci:002",
         "choices": [
             {
-                "text": "they never work.",
+                "text": "they are innovative and employ hipsters.",
                 "index": 0,
                 "logprobs": "null",
                 "finish_reason": "length",
