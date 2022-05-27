@@ -2,9 +2,11 @@ import datetime
 import json
 import logging
 import os
+import random
 
 import azure.functions as func
 from azure.storage.blob import BlobServiceClient
+from config.prompts import PROMPTS
 from requests import Session
 
 BASE_URL = os.environ["BASE_URL"]
@@ -12,6 +14,10 @@ TOKEN = os.environ["TOKEN"]
 THEAI_APP_STORAGE_CONNECTION_STRING = os.environ[
     "THEAI_APP_STORAGE_CONNECTION_STRING"
 ]
+
+
+def build_data_string(prompt, temperature, max_tokens) -> str:
+    return f'{{"prompt": "{prompt}", "temperature": {temperature}, "max_tokens": {max_tokens}}}'
 
 
 def main(gpt3: func.TimerRequest) -> None:
@@ -22,33 +28,14 @@ def main(gpt3: func.TimerRequest) -> None:
         "Authorization": f"Bearer {TOKEN}",
     }
 
-    prompt = "AI startups are awesome because:"
+    prompt = random.choice(PROMPTS)
 
-    data = {
-        "prompt": prompt,
-        "temperature": 0,
-        "max_tokens": 10,
-    }
+    data = build_data_string(prompt, 0, 10)
 
-    r = session.request("POST", BASE_URL)
+    r = session.post(BASE_URL, data=data)
+    r.raise_for_status()
 
-    # Manual for now.
-    response = {
-        "id": "cmpl-GERzeJQ4lvqPk8SkZu4XMIuR",
-        "object": "text_completion",
-        "created": 1586839808,
-        "model": "text-davinci:002",
-        "choices": [
-            {
-                "text": "they are innovative and employ hipsters.",
-                "index": 0,
-                "logprobs": "null",
-                "finish_reason": "length",
-            }
-        ],
-    }
-
-    response_data = json.dumps(response)
+    response_data = json.dumps(r.json())
     prompt_data = json.dumps(prompt)
 
     try:
