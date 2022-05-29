@@ -6,7 +6,7 @@ import random
 
 import azure.functions as func
 from azure.storage.blob import BlobServiceClient
-from config.prompts import PROMPTS
+from ..config.prompts import PROMPTS
 from requests import Session
 
 BASE_URL = os.environ["BASE_URL"]
