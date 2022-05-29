@@ -31,7 +31,7 @@ def main(gpt3: func.TimerRequest) -> None:
 
     prompt = random.choice(PROMPTS)
 
-    data = build_data_string(prompt, 0, 10)
+    data = build_data_string(prompt, 0, 20)
 
     r = session.post(BASE_URL, data=data)
     r.raise_for_status()
