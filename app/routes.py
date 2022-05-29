@@ -1,7 +1,5 @@
 import json
 import os
-import subprocess
-from http.client import CONTINUE
 
 import flask
 from azure.storage.blob import BlobServiceClient

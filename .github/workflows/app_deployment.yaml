@@ -1,0 +1,36 @@
+---
+name: build and deploy app
+
+on:
+  push:
+    branches:
+      - "master"
+    paths:
+      - 'app/deployment.yaml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v2
+
+      - name: "ACR Login"
+        uses: azure/docker-login@v1
+        with:
+          login-server: ackermans.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: 'Docker Build and Push'
+        run: |
+          docker build . -t ackermans.azurecr.io/ackermans-dash-app:${{ github.sha }}
+          docker push ackermans.azurecr.io/ackermans-dash-app:${{ github.sha }}
+
+      - name: 'Deploy'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'ackermans-dash-app'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: 'ackermans.azurecr.io/ackermans-dash-app:${{ github.sha }}'
