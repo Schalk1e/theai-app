@@ -21,12 +21,7 @@ def message() -> str:
     r = []
     for name in ["prompt.json", "response.json"]:
         blob_client = container_client.get_blob_client(name)
-        res = json.loads(
-            blob_client.download_blob()
-            .readall()
-            .decode("utf8")
-            .replace("'", '"')
-        )
+        res = json.loads(blob_client.download_blob().readall().decode("utf8"))
         r.append(res)
 
     return flask.render_template(
