@@ -12,4 +12,6 @@
 
 GPT-3 loves hipster AI startups.
 
+The only thing this app does is display GPT-3's completions of a finite list of prompts that are less than optimistic about AI startups! It serves no purpose other than to provide a constructive outlet for my deep-seated skepticism of AI in practice. 
+
 https://theaiapp.azurewebsites.net/
